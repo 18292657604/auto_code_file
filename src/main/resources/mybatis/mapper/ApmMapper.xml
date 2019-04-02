@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ApmMapper">
+
+    <resultMap id="ApmNodeMap" type="com.musingtec.cmdb.entity.apm.ApmNodeEntity">
+        <result column="node_id" property="nodeId"/>
+        <result column="node_name" property="nodeName"/>
+        <result column="sc" property="sc"/>
+        <result column="belong_application_id" property="belongApplicationId"/>
+        <result column="application_a" property="applicationA"/>
+        <result column="application_b" property="applicationB"/>
+    </resultMap>
+
+    <!-- apm节点列表 -->
+    <select id="queryApmNode" parameterType="com.musingtec.cmdb.api.dto.request.ApmNodeRequest" resultMap="ApmNodeMap">
+        select
+        node_id,
+        node_name,
+        sc,
+        belong_application_id,
+        application_a,
+        application_b
+        from
+        apm_node
+        where 1=1
+        <if test="nodeId != null and nodeId != ''">
+            and node_id = #{nodeId}
+        </if>
+        <if test="nodeName != null and nodeName != ''">
+            and node_name = #{nodeName}
+        </if>
+        <if test="sc != null and sc != ''">
+            and sc = #{sc}
+        </if>
+        <if test="belongApplicationId != null and belongApplicationId != ''">
+            and belong_application_id = #{belongApplicationId}
+        </if>
+        <if test="applicationA != null and applicationA != ''">
+            and application_a = #{applicationA}
+        </if>
+        <if test="applicationB != null and applicationB != ''">
+            and application_b = #{applicationB}
+        </if>
+    </select>
+
+    <resultMap id="ApmBizcodeMap" type="com.musingtec.cmdb.entity.apm.ApmBizcodeEntity">
+        <result column="bizcode_id" property="bizcodeId"/>
+        <result column="node_id" property="nodeId"/>
+        <result column="bizcode_name" property="bizcodeName"/>
+    </resultMap>
+
+    <!-- apm交易码列表 -->
+    <select id="queryApmBizcode" parameterType="com.musingtec.cmdb.api.dto.request.ApmBizcodeRequest" resultMap="ApmBizcodeMap">
+        select
+        bizcode_id,
+        node_id,
+        bizcode_name
+        from
+        apm_bizcode
+        where 1=1
+        <if test="bizcodeId != null and bizcodeId != ''">
+            and bizcode_id = #{bizcodeId}
+        </if>
+        <if test="nodeId != null and nodeId != ''">
+            and node_id = #{nodeId}
+        </if>
+        <if test="bizcodeName != null and bizcodeName != ''">
+            and bizcode_name = #{bizcodeName}
+        </if>
+    </select>
+
+    <resultMap id="ApmApplicationMap" type="com.musingtec.cmdb.entity.apm.ApmApplicationEntity">
+        <result column="application_id" property="applicationId"/>
+        <result column="application_name" property="applicationName"/>
+        <result column="important" property="important"/>
+    </resultMap>
+
+    <!-- apm交易码列表 -->
+    <select id="queryApmApplication" parameterType="com.musingtec.cmdb.api.dto.request.ApmApplicationRequest" resultMap="ApmApplicationMap">
+        select
+        application_id,
+        application_name,
+        important
+        from
+        apm_application
+        where 1=1
+        <if test="applicationId != null and applicationId != ''">
+            and application_id = #{applicationId}
+        </if>
+        <if test="applicationName != null and applicationName != ''">
+            and application_name = #{applicationName}
+        </if>
+        <if test="important != null and important != ''">
+            and important = #{important}
+        </if>
+    </select>
+</mapper>
